@@ -1,26 +1,43 @@
 ﻿using AppNotasMaui.Data;
+using System.Collections.ObjectModel;
+using AppNotasMaui.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AppNotasMaui
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private readonly DataContext _dataContext;
+
+        public ObservableCollection<Nota> Notas { get; set; }
 
         public MainPage(DataContext dataContext)
         {
             InitializeComponent();
+            _dataContext = dataContext;
+            Notas = new ObservableCollection<Nota>();
+            BindingContext = this; //MVVM panel
+            LoadNotes();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private async void LoadNotes()
         {
-            count++;
+            try
+            {
+                await _dataContext.Database.EnsureCreatedAsync();
+                var Notas = await _dataContext.Notas.ToListAsync();
+                foreach (var nota in Notas)
+                {
+                    this.Notas.Add(nota);
+                }
+            }
+            catch(Exception e)
+            {
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+                await DisplayAlert("Error","No se puedo cargar las notas:" + e, "Ok");
+            }
         }
+
     }
 }

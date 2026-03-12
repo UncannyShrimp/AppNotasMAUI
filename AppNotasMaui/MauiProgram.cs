@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AppNotasMaui.Data;
+using AppNotasMaui.Models;
 
 namespace AppNotasMaui
 {
@@ -19,7 +20,7 @@ namespace AppNotasMaui
                 });
 
             builder.Services.AddDbContext<DataContext>(
-            options => 
+            options =>
             {
                 var dbPath = Path.Combine(FileSystem.AppDataDirectory, "datos.db");
                 options.UseSqlite($"Data Source={dbPath}");
@@ -30,7 +31,26 @@ namespace AppNotasMaui
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+                
+                context.Database.EnsureCreated();
+                if (!context.Notas.Any())
+                {
+                    context.Notas.AddRange(
+                            new Nota { Id = 1, Title = "Nota uno", Content = "contenido", CreatedAt = DateTime.Now, IsFavorite = true },
+                            new Nota { Id = 2, Title = "Nota dos", Content = "contenido ", CreatedAt = DateTime.Now, IsFavorite = false }
+                    );
+                    context.SaveChanges();
+                }
+
+            }
+            return app;
+
+            //return builder.Build();
         }
     }
 }

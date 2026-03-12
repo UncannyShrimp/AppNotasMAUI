@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using AppNotasMaui.Data;
 
 namespace AppNotasMaui
 {
@@ -15,8 +18,16 @@ namespace AppNotasMaui
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddDbContext<DataContext>(
+            options => 
+            {
+                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "datos.db");
+                options.UseSqlite($"Data Source={dbPath}");
+            }
+                );//Dependency Injection
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

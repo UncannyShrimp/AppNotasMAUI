@@ -1,10 +1,12 @@
-﻿namespace AppNotasMaui
+﻿using AppNotasMaui.Data;
+
+namespace AppNotasMaui
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
 
-        public MainPage()
+        public MainPage(DataContext dataContext)
         {
             InitializeComponent();
         }

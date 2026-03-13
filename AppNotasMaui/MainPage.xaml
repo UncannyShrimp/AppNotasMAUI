@@ -7,7 +7,8 @@
         <VerticalStackLayout Spacing="20" Padding="30,0" VerticalOptions="Center">
             <Label Text="App de Notas" FontSize="32" HorizontalOptions="Center" />
             <Label Text="Organizador de Notas rapido" FontSize="18" HorizontalOptions="Center" />
-            <Button Text="Crear nueva nota" FontSize="20" HorizontalOptions="Center" />
+            
+            <Button Text="+" FontSize="20" HorizontalOptions="Center" Clicked="Button_Clicked"/>
 
             <CollectionView ItemsSource="{Binding Notas}">
                 <CollectionView.ItemTemplate>
@@ -53,6 +54,11 @@
                            FontSize="12"
                            TextColor="#777"
                            Text="{Binding CreatedAt, StringFormat='Creado: {0:dd MMM yyyy}'}"/>
+                                <Button Grid.Row="0"
+                                        Text="Editar"
+                                        Grid.ColumnSpan="2"
+                                        BackgroundColor="Transparent"
+                                        Clicked="Edit_Clicked"/>
 
                             </Grid>
 

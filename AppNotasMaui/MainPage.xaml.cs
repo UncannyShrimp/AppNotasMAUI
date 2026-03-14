@@ -14,11 +14,14 @@ namespace AppNotasMaui
 
         public ObservableCollection<Nota> Notas { get; set; }
 
+        public ObservableCollection<Nota> FavoriteNotas { get; set; }
+
         public MainPage(DataContext dataContext)
         {
             InitializeComponent();
             _dataContext = dataContext;
             Notas = new ObservableCollection<Nota>();
+            FavoriteNotas = new ObservableCollection<Nota>();
             BindingContext = this; //MVVM panel
             LoadNotes();
         }
@@ -31,8 +34,15 @@ namespace AppNotasMaui
                 var Notas = await _dataContext.Notas.ToListAsync();
                 foreach (var nota in Notas)
                 {
-                    this.Notas.Add(nota);
+                    if (nota.IsFavorite) {
+                        this.FavoriteNotas.Add(nota);
+                    }
+                    else
+                    {
+                        this.Notas.Add(nota);
+                    }     
                 }
+
             }
             catch(Exception e)
             {
@@ -49,7 +59,28 @@ namespace AppNotasMaui
         {
             if (sender is Button button && button.BindingContext is Nota nota)
             {
+                
                 await Navigation.PushAsync(new EditPage(nota, _dataContext));
+            }
+        }
+        private async void Delete_Clicked(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is Nota nota)
+            {
+                try
+                { 
+                    if (nota != null)
+                    {
+                        _dataContext.Notas.Remove(nota);
+                        await _dataContext.SaveChangesAsync();
+                        await DisplayAlert("Éxito", "La nota se ha eliminado correctamente.", "OK");
+                        await Navigation.PushAsync(new MainPage(_dataContext));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", "No se pudo eliminar la nota: " + ex.Message, "OK");
+                }
             }
         }
 

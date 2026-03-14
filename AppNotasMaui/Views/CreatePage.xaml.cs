@@ -4,25 +4,18 @@ using AppNotasMaui.Models;
 using AppNotasMaui.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using AppNotasMaui.Controls;
 
 namespace AppNotasMaui.Views;
 
 public partial class CreatePage : ContentPage
 {
     private readonly DataContext _dataContext;
-    bool _isfavorite = false;
     public CreatePage(DataContext dataContext)
 	{
         _dataContext = dataContext;
         InitializeComponent();
         
-    }
-
-    private async void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        _isfavorite = e.Value;
-        await DisplayAlert("Favorito", _isfavorite ? "La nota se marcará como favorita." : "La nota no se marcará como favorita.", "OK");
-
     }
 
     private async void Save_Clicked(object sender, EventArgs e)
@@ -42,11 +35,11 @@ public partial class CreatePage : ContentPage
             await _dataContext.Database.EnsureCreatedAsync();
             Nota newNota = new Nota
             {
-                Id = 0, 
+                Id = 0,
                 Title = TitleEntry.Text.Trim(),
                 Content = ContentEntry.Text.Trim(),
                 CreatedAt = DateTime.Now,
-                IsFavorite = _isfavorite
+                IsFavorite = FavoriteCheck.IsChecked
             };
             await _dataContext.Notas.AddAsync(newNota);
             await _dataContext.SaveChangesAsync();

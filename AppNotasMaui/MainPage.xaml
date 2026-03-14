@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:AppNotasMaui.Controls"
              x:Class="AppNotasMaui.MainPage">
 
     <ScrollView>
@@ -10,7 +11,8 @@
             
             <Button Text="+" FontSize="20" HorizontalOptions="Center" Clicked="Button_Clicked"/>
 
-            <CollectionView ItemsSource="{Binding Notas}">
+            <Label Text="Notas Favoritas" FontSize="24" HorizontalOptions="Start" Margin="10,20,0,0"/>
+            <CollectionView ItemsSource="{Binding FavoriteNotas}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border Stroke="#E0E0E0"
@@ -34,10 +36,14 @@
                            LineBreakMode="TailTruncation"/>
 
                                 <!-- FAVORITO -->
-                                <Label Grid.Row="0"
-                           Grid.Column="1"
-                           Text="⭐"
-                           IsVisible="{Binding IsFavorite}"/>
+
+                                <controls:StarCheckBox 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BindingContext="{Binding .}"
+                            IsChecked="{Binding IsFavorite, Mode=TwoWay}"
+                                    
+                                    />
 
                                 <!-- CONTENIDO -->
                                 <Label Grid.Row="1"
@@ -54,11 +60,18 @@
                            FontSize="12"
                            TextColor="#777"
                            Text="{Binding CreatedAt, StringFormat='Creado: {0:dd MMM yyyy}'}"/>
-                                <Button Grid.Row="0"
+                                <Button Grid.Row="2"
+                           Grid.Column="2"
                                         Text="Editar"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="Transparent"
-                                        Clicked="Edit_Clicked"/>
+
+                           BackgroundColor="#E1AF4A"
+                           Clicked="Edit_Clicked"/>
+
+                                <Button Grid.Row="1"
+                           Grid.Column="1"
+Text="Borrar"
+                           BackgroundColor="Red"
+                           Clicked="Delete_Clicked"/>
 
                             </Grid>
 
@@ -67,6 +80,78 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Label Text="Tus Notas" FontSize="24" HorizontalOptions="Start" Margin="10,20,0,0"/>
+            <CollectionView ItemsSource="{Binding Notas}">
+                
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border Stroke="#E0E0E0"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    BackgroundColor="#ECECEC"
+                    Padding="15"
+                    Margin="10">
+
+
+                            <Grid RowDefinitions="Auto,Auto,Auto"
+                      ColumnDefinitions="*,Auto"
+                      RowSpacing="5">
+
+                                <!-- TITULO -->
+                                <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="{Binding Title}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           LineBreakMode="TailTruncation"/>
+
+                                <!-- FAVORITO -->
+
+                                <controls:StarCheckBox 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BindingContext="{Binding .}"
+                            IsChecked="{Binding IsFavorite, Mode=TwoWay}"
+                                    
+                                    />
+
+                                <!-- CONTENIDO -->
+                                <Label Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding Content}"
+                           TextColor="#666"
+                           MaxLines="2"
+                           LineBreakMode="TailTruncation"/>
+
+                                <!-- FECHA -->
+                                <Label Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="End"
+                           FontSize="12"
+                           TextColor="#777"
+                           Text="{Binding CreatedAt, StringFormat='Creado: {0:dd MMM yyyy}'}"/>
+                                <Button Grid.Row="2"
+                           Grid.Column="2"
+                                        Text="Editar"
+
+                           BackgroundColor="#E1AF4A"
+                           Clicked="Edit_Clicked"/>
+
+                                <Button Grid.Row="1"
+                           Grid.Column="1"
+Text="Borrar"
+                           BackgroundColor="Red"
+                           Clicked="Delete_Clicked"/>
+
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 

@@ -97,10 +97,4 @@ public partial class EditPage : ContentPage
     {
         await Navigation.PushAsync(new MainPage(_dataContext));
     }
-
-    public async void FavoriteCheck_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        _isfavorite = e.Value;
-        await DisplayAlert("Favorito", e.Value ? "La nota se marcará como favorita." : "La nota no se marcará como favorita.", "OK");
-    }
 }

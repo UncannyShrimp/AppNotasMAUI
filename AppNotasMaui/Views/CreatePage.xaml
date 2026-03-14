@@ -2,20 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppNotasMaui.Views.CreatePage"
+             xmlns:controls="clr-namespace:AppNotasMaui.Controls"
              Title="CreatePage">
     <VerticalStackLayout>
         <Label 
             Text="Crea tu nota"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
-        <CheckBox CheckedChanged="CheckBox_CheckedChanged">
-            
-        </CheckBox>
+
+        <controls:StarCheckBox 
+            Grid.Row="0"
+            Grid.Column="1"
+            x:Name="FavoriteCheck"
+            BindingContext="{Binding .}"
+            IsChecked="{Binding IsFavorite, Mode=TwoWay}"/>
         <Label 
             Text="Marcar como favorito"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
         <Editor
             x:Name="TitleEntry"
             Placeholder="Agrega un titulo a tu nota...">

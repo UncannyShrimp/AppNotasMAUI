@@ -2,157 +2,258 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:AppNotasMaui.Controls"
-             x:Class="AppNotasMaui.MainPage">
+             x:Class="AppNotasMaui.MainPage"
+             Title="Notas"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}"
+             Padding="0">
 
-    <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="30,0" VerticalOptions="Center">
-            <Label Text="App de Notas" FontSize="32" HorizontalOptions="Center" />
-            <Label Text="Organizador de Notas rapido" FontSize="18" HorizontalOptions="Center" />
-            
-            <Button Text="+" FontSize="20" HorizontalOptions="Center" Clicked="Button_Clicked"/>
+    <ContentPage.Resources>
+        <ResourceDictionary>
 
-            <Label Text="Notas Favoritas" FontSize="24" HorizontalOptions="Start" Margin="10,20,0,0"/>
-            <CollectionView ItemsSource="{Binding FavoriteNotas}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Stroke="#E0E0E0"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 12"
-                    BackgroundColor="#ECECEC"
-                    Padding="15"
-                    Margin="10">
+            <Color x:Key="Primary">#3B82F6</Color>
+            <Color x:Key="PrimaryDark">#2563EB</Color>
+            <Color x:Key="AccentYellow">#F59E0B</Color>
+            <Color x:Key="DangerRed">#EF4444</Color>
+            <Color x:Key="CardLight">#F9FAFB</Color>
+            <Color x:Key="CardDark">#1F2937</Color>
+            <Color x:Key="TextPrimaryLight">#111827</Color>
+            <Color x:Key="TextPrimaryDark">White</Color>
+            <Color x:Key="TextSecondaryLight">#6B7280</Color>
+            <Color x:Key="TextSecondaryDark">#D1D5DB</Color>
+            <Color x:Key="BorderLight">#E5E7EB</Color>
+            <Color x:Key="BorderDark">#374151</Color>
 
-                            <Grid RowDefinitions="Auto,Auto,Auto"
-                      ColumnDefinitions="*,Auto"
-                      RowSpacing="5">
-
-                                <!-- TITULO -->
-                                <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Text="{Binding Title}"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black"
-                           LineBreakMode="TailTruncation"/>
-
-                                <!-- FAVORITO -->
-
-                                <controls:StarCheckBox 
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            BindingContext="{Binding .}"
-                            IsChecked="{Binding IsFavorite, Mode=TwoWay}"
-                                    
-                                    />
-
-                                <!-- CONTENIDO -->
-                                <Label Grid.Row="1"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding Content}"
-                           TextColor="#666"
-                           MaxLines="2"
-                           LineBreakMode="TailTruncation"/>
-
-                                <!-- FECHA -->
-                                <Label Grid.Row="2"
-                           Grid.ColumnSpan="2"
-                           HorizontalOptions="End"
-                           FontSize="12"
-                           TextColor="#777"
-                           Text="{Binding CreatedAt, StringFormat='Creado: {0:dd MMM yyyy}'}"/>
-                                <Button Grid.Row="2"
-                           Grid.Column="2"
-                                        Text="Editar"
-
-                           BackgroundColor="#E1AF4A"
-                           Clicked="Edit_Clicked"/>
-
-                                <Button Grid.Row="1"
-                           Grid.Column="1"
-Text="Borrar"
-                           BackgroundColor="Red"
-                           Clicked="Delete_Clicked"/>
-
-                            </Grid>
-
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Label Text="Tus Notas" FontSize="24" HorizontalOptions="Start" Margin="10,20,0,0"/>
-            <CollectionView ItemsSource="{Binding Notas}">
-                
-                <CollectionView.ItemTemplate>
-
-                    <DataTemplate>
-
-                        <Border Stroke="#E0E0E0"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 12"
-                    BackgroundColor="#ECECEC"
-                    Padding="15"
-                    Margin="10">
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
 
-                            <Grid RowDefinitions="Auto,Auto,Auto"
-                      ColumnDefinitions="*,Auto"
-                      RowSpacing="5">
+    <Grid RowDefinitions="*,Auto">
 
-                                <!-- TITULO -->
-                                <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Text="{Binding Title}"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Black"
-                           LineBreakMode="TailTruncation"/>
+        <ScrollView Grid.Row="0"
+                    Grid.RowSpan="2">
 
-                                <!-- FAVORITO -->
+            <VerticalStackLayout Spacing="16"
+                                 Padding="16,16,16,96">
 
-                                <controls:StarCheckBox 
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            BindingContext="{Binding .}"
-                            IsChecked="{Binding IsFavorite, Mode=TwoWay}"
-                                    
-                                    />
 
-                                <!-- CONTENIDO -->
-                                <Label Grid.Row="1"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding Content}"
-                           TextColor="#666"
-                           MaxLines="2"
-                           LineBreakMode="TailTruncation"/>
+                <Label Text="Mis Notas"
+                       FontSize="Title"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
+                       HorizontalOptions="Start"
+                       Margin="4,8,0,12" />
 
-                                <!-- FECHA -->
-                                <Label Grid.Row="2"
-                           Grid.ColumnSpan="2"
-                           HorizontalOptions="End"
-                           FontSize="12"
-                           TextColor="#777"
-                           Text="{Binding CreatedAt, StringFormat='Creado: {0:dd MMM yyyy}'}"/>
-                                <Button Grid.Row="2"
-                           Grid.Column="2"
-                                        Text="Editar"
+                <Label Text="Favoritas"
+                       FontSize="Subtitle"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
+                       Margin="0,8,0,4" />
 
-                           BackgroundColor="#E1AF4A"
-                           Clicked="Edit_Clicked"/>
+                <CollectionView ItemsSource="{Binding FavoriteNotas}"
+                                EmptyView="No tienes notas favoritas aún">
 
-                                <Button Grid.Row="1"
-                           Grid.Column="1"
-Text="Borrar"
-                           BackgroundColor="Red"
-                           Clicked="Delete_Clicked"/>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
 
-                            </Grid>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="16"
+                                    Margin="0">
 
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
+                                <Border.Shadow>
+                                    <Shadow Brush="#000000"
+                                            Radius="8"
+                                            Offset="0,2"
+                                            Opacity="0.2"/>
+                                </Border.Shadow>
+
+                                <Grid RowDefinitions="Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      RowSpacing="8">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding Title}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <controls:StarCheckBox Grid.Row="0" Grid.Column="1"
+                                                           IsChecked="{Binding IsFavorite, Mode=TwoWay}"
+                                                           IsToggleEnabled="False"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="End" />
+
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                           Text="{Binding Content}"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
+                                           FontSize="Caption"
+                                           MaxLines="3"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="{Binding CreatedAt, StringFormat='{}Creado: {0:dd MMM yyyy}'}"
+                                           FontSize="Caption"
+                                           TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                                           VerticalOptions="End" />
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                            Text="{Binding UpdatedAt, StringFormat='{}Editado: {0:dd MMM yyyy}'}"
+                                            FontSize="Caption"
+                                            TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                                            VerticalOptions="Start" />
+
+
+                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           Spacing="8"
+                                                           VerticalOptions="End">
+
+                                        <Button Text="Editar"
+                                                FontSize="Caption"
+                                                Padding="12,6"
+                                                BackgroundColor="{StaticResource AccentYellow}"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Clicked="Edit_Clicked"
+                                                BindingContext="{Binding .}" />
+
+                                        <Button Text="Borrar"
+                                                FontSize="Caption"
+                                                Padding="12,6"
+                                                BackgroundColor="{StaticResource DangerRed}"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Clicked="Delete_Clicked"
+                                                BindingContext="{Binding .}" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Todas las notas"
+                       FontSize="Subtitle"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
+                       Margin="0,32,0,4" />
+
+                <CollectionView ItemsSource="{Binding Notas}"
+                                EmptyView="Aún no tienes notas">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="16"
+                                    Margin="0">
+
+                                <Border.Shadow>
+                                    <Shadow Brush="#000000"
+                                            Radius="8"
+                                            Offset="0,2"
+                                            Opacity="0.2"/>
+                                </Border.Shadow>
+
+                                <Grid RowDefinitions="Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      RowSpacing="8">
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding Title}"
+                                           FontSize="Medium"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <controls:StarCheckBox Grid.Row="0" Grid.Column="1"
+                                                           IsChecked="{Binding IsFavorite, Mode=TwoWay}"
+                                                           IsToggleEnabled="False"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="End"
+                                                           IsVisible="{Binding IsFavorite}"/>
+
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                           Text="{Binding Content}"
+                                           TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
+                                           FontSize="Caption"
+                                           MaxLines="3"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="{Binding CreatedAt, StringFormat='{}Creado: {0:dd MMM yyyy}'}"
+                                           FontSize="Caption"
+                                           TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                                           VerticalOptions="End" />
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                            Text="{Binding UpdatedAt, StringFormat='{}Editado: {0:dd MMM yyyy}'}"
+                                            FontSize="Caption"
+                                            IsVisible="{Binding UpdatedAt }"
+                                            TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}"
+                                            VerticalOptions="Start" />
+
+
+                                    <HorizontalStackLayout Grid.Row="2" Grid.Column="1"
+                                                           HorizontalOptions="End"
+                                                           Spacing="8"
+                                                           VerticalOptions="End">
+
+                                        <Button Text="Editar"
+                                                FontSize="Caption"
+                                                Padding="12,6"
+                                                BackgroundColor="{StaticResource AccentYellow}"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Clicked="Edit_Clicked"
+                                                BindingContext="{Binding .}" />
+
+                                        <Button Text="Borrar"
+                                                FontSize="Caption"
+                                                Padding="12,6"
+                                                BackgroundColor="{StaticResource DangerRed}"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Clicked="Delete_Clicked"
+                                                BindingContext="{Binding .}" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <BoxView HeightRequest="40" Color="Transparent" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button x:Name="FabAddButton"
+                Text="+"
+                FontSize="36"
+                FontAttributes="Bold"
+                TextColor="White"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                CornerRadius="36"
+                WidthRequest="72"
+                HeightRequest="72"
+                Padding="0"
+                Clicked="Button_Clicked"
+                Grid.Row="1"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="0,0,24,24"/>
+
+    </Grid>
 
 </ContentPage>

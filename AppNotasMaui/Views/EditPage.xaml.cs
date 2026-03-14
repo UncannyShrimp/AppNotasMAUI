@@ -33,6 +33,8 @@ public partial class EditPage : ContentPage
                 ContentEntry.Text = nota.Content;
                 FavoriteCheck.IsChecked = nota.IsFavorite;
                 _isfavorite = nota.IsFavorite;
+                CreateDate.Text = nota.CreatedAt.ToString("g");
+                UpdateDate.Text = nota.UpdatedAt.HasValue ? nota.UpdatedAt.Value.ToString("g") : "Nunca actualizado";
             }
         }
         catch (Exception e)

@@ -20,10 +20,12 @@ namespace AppNotasMaui
         {
             InitializeComponent();
             _dataContext = dataContext;
-            Notas = new ObservableCollection<Nota>();
             FavoriteNotas = new ObservableCollection<Nota>();
+            Notas = new ObservableCollection<Nota>();
+            
             BindingContext = this; //MVVM panel
             LoadNotes();
+            BindingContext = this;
         }
 
         private async void LoadNotes()
@@ -37,10 +39,9 @@ namespace AppNotasMaui
                     if (nota.IsFavorite) {
                         this.FavoriteNotas.Add(nota);
                     }
-                    else
-                    {
-                        this.Notas.Add(nota);
-                    }     
+
+                    this.Notas.Add(nota);
+     
                 }
 
             }

@@ -36,7 +36,6 @@ namespace AppNotasMaui
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-                
                 context.Database.EnsureCreated();
                 if (!context.Notas.Any())
                 {

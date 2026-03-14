@@ -27,9 +27,9 @@ namespace AppNotasMaui
             }
                 );//Dependency Injection
 
-#if DEBUG
-            builder.Logging.AddDebug();
-#endif
+//#if DEBUG
+//            builder.Logging.AddDebug();
+//#endif
 
             var app = builder.Build();
 

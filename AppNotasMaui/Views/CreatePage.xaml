@@ -10,7 +10,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <!-- Reuse the same colors as MainPage -->
             <Color x:Key="Primary">#3B82F6</Color>
             <Color x:Key="PrimaryDark">#2563EB</Color>
             <Color x:Key="AccentYellow">#F59E0B</Color>
@@ -29,7 +28,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
-        <!-- Optional modern header (like many note apps) -->
+
         <Border Grid.Row="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                 StrokeThickness="0"
@@ -48,7 +47,7 @@
 
             <VerticalStackLayout Spacing="20" Padding="16,16,16,100">
 
-                <!-- Card container for the note fields -->
+
                 <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                         Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}"
                         StrokeThickness="1"
@@ -64,7 +63,7 @@
 
                     <VerticalStackLayout Spacing="16">
 
-                        <!-- Title + Favorite toggle row -->
+
                         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
 
                             <Editor x:Name="TitleEntry"
@@ -84,7 +83,6 @@
                                                    Scale="0.7" />
                         </Grid>
 
-                        <!-- Content Editor -->
                         <Editor x:Name="ContentEntry"
                                 Placeholder="Escribe tu nota aquí..."
                                 AutoSize="TextChanges"
@@ -98,13 +96,11 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Extra space before buttons -->
-                <BoxView HeightRequest="40" Color="Transparent" />
+                <BoxView HeightRequest="40" BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}" />
 
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bottom action buttons (floating bar style) -->
         <HorizontalStackLayout Grid.Row="1"
                                VerticalOptions="End"
                                HorizontalOptions="Fill"

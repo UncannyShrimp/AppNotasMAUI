@@ -233,7 +233,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <BoxView HeightRequest="40" Color="Transparent" />
+                <BoxView HeightRequest="40" BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}"/>
 
             </VerticalStackLayout>
         </ScrollView>

@@ -10,7 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <!-- Same colors as MainPage & CreatePage -->
+
             <Color x:Key="Primary">#3B82F6</Color>
             <Color x:Key="PrimaryDark">#2563EB</Color>
             <Color x:Key="AccentYellow">#F59E0B</Color>
@@ -29,7 +29,7 @@
 
     <Grid RowDefinitions="Auto,*">
 
-        <!-- Header -->
+
         <Border Grid.Row="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                 StrokeThickness="0"
@@ -48,7 +48,7 @@
 
             <VerticalStackLayout Spacing="20" Padding="16,16,16,140">
 
-                <!-- Main note editing card -->
+
                 <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
                         Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}"
                         StrokeThickness="1"
@@ -64,7 +64,7 @@
 
                     <VerticalStackLayout Spacing="16">
 
-                        <!-- Title + Favorite -->
+
                         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
 
                             <Editor x:Name="TitleEntry"
@@ -86,7 +86,7 @@
                                                    Scale="0.7" />
                         </Grid>
 
-                        <!-- Content -->
+
                         <Editor x:Name="ContentEntry"
                                 Text="{Binding Content}"
                                 Placeholder="Escribe tu nota aquí..."
@@ -98,7 +98,7 @@
                                 BackgroundColor="Transparent"
                                 Margin="0,-4,0,0" />
 
-                        <!-- Dates info -->
+
                         <VerticalStackLayout Spacing="4" Margin="0,8,0,0">
                             <Label 
                                    x:Name="CreateDate"
@@ -116,47 +116,50 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Extra space before bottom bar -->
-                <BoxView HeightRequest="60" Color="Transparent" />
+
+                <BoxView HeightRequest="60" BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}" />
 
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bottom action buttons -->
-        <HorizontalStackLayout Grid.Row="1"
-                               VerticalOptions="End"
-                               HorizontalOptions="Fill"
-                               Padding="16"
-                               Spacing="12"
-                               BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}"
-                               Margin="0,0,0,16">
+
+        <HorizontalStackLayout 
+    Grid.Row="1"
+    VerticalOptions="End"
+    HorizontalOptions="Fill"
+    Padding="16"
+    Spacing="12"
+    BackgroundColor="{AppThemeBinding Light=White, Dark=#0F1117}"
+    Margin="0,0,0,16">
 
             <Button Text="Cancelar"
-                    Clicked="Cancel_Clicked"
-                    FontSize="Medium"
-                    TextColor="{StaticResource TextSecondaryLight}"
-                    BackgroundColor="Transparent"
-                    BorderColor="{StaticResource BorderLight}"
-                    BorderWidth="1"
-                    CornerRadius="12"
-                    Padding="15,07"/>
+            Clicked="Cancel_Clicked"
+            FontSize="Medium"
+            TextColor="{StaticResource TextSecondaryLight}"
+            BackgroundColor="Transparent"
+            BorderColor="{StaticResource BorderLight}"
+            BorderWidth="1"
+            CornerRadius="12"
+            Padding="16,10"
+            MinimumWidthRequest="100" />
 
             <Button Text="Guardar"
-                    Clicked="Save_Clicked"
-                    FontSize="Medium"
-                    TextColor="White"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                    CornerRadius="12"
-                    Padding="15,07"/>
+            Clicked="Save_Clicked"
+            FontSize="Medium"
+            TextColor="White"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+            CornerRadius="12"
+            Padding="16,10"
+            MinimumWidthRequest="100" />
 
             <Button Text="Borrar"
-                    Clicked="Delete_Clicked"
-                    FontSize="Medium"
-                    TextColor="White"
-                    BackgroundColor="{StaticResource DangerRed}"
-                    CornerRadius="12"
-                    Padding="15,07"/>
-
+            Clicked="Delete_Clicked"
+            FontSize="Medium"
+            TextColor="White"
+            BackgroundColor="{StaticResource DangerRed}"
+            CornerRadius="12"
+            Padding="16,10"
+            MinimumWidthRequest="100" />
         </HorizontalStackLayout>
 
     </Grid>

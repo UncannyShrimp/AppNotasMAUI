@@ -48,7 +48,7 @@ Solo descarga el archivo `.apk`, habilita "Orígenes desconocidos" o "Instalar a
 1. Clona el repositorio
 
    ```bash
-   git clone https://github.com/tu-usuario/app-notas-maui.git
+   git clone https://github.com/UncannyShrimp/AppNotasMAUI.git 
    cd app-notas-maui
 
 2. Restaura los paquetes
